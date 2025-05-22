@@ -1,61 +1,21 @@
-# Car-Race-Game-using-HTML-CSS-JS
-🏎️ Car Racing Game
-A simple and fun Car Racing Game built using HTML, CSS, and JavaScript. The game runs entirely in the browser and provides a basic racing experience with smooth controls and collision detection.
+# CAR RACER GAME
+This gaming project is developed using Pure HTML, CSS &amp; Javascript. Talking about the gameplay, the user has to dodge from other cars and score points. The more you play, more you’ll score the points. PC controls are [Left, Right, Up, Down] Arrow Keys for movement].This project is easy to operate and understood by the users.
 
-🚀 Features
-🎮 Keyboard controls (Arrow keys to move)
+## Authors
+:point_right: [Navjot Singh Prince](https://github.com/navjotsinghprince)
 
-🧠 Basic collision detection
+See also the site of [contributor](https://navjotsinghprince.com)
+who participated in this project.
 
-🌟 Increasing difficulty as you play
+## Contact
+If you discover any question within project, please send an e-mail to Prince Ferozepuria via [fzr@navjotsinghprince.com](mailto:fzr@navjotsinghprince.com). Your all questions will be answered.
 
-🔊 Sound effects (optional)
+## Buy Me A Coffee! :coffee: 
+Feel free to buy me a coffee at [__Buy me a coffee! :coffee:__]( https://ko-fi.com/princeferozepuria), I would be really grateful for anything, be it coffee or just a kind comment towards my work, that helps me a lot.
 
-📱 Responsive design — playable on both desktop and mobile
+## Donation
+The project is completely free to use, however, it has taken a lot of time to build. If you would like to show your appreciation by leaving a small donation, you can do so by clicking here [here](https://www.paypal.com/paypalme/navjotsinghprince). Thanks!
 
-🎥 Demo
-Check out the live demo here: GitHub Pages Link (replace with your live URL if hosted)
-
-(replace with your actual image)
-
-🛠️ Technologies Used
-HTML5 – Game structure
-
-CSS3 – Styling and animations
-
-JavaScript (Vanilla) – Game logic and interactivity
-
-🎮 How to Play
-Press Arrow Up (↑) to accelerate
-
-Press Arrow Left (←) / Arrow Right (→) to move your car sideways
-
-Avoid oncoming cars
-
-Try to survive as long as possible and beat your high score!
-
-📂 Folder Structure
-pgsql
-Copy
-Edit
-📁 car-racing-game/
-├── index.html
-├── style.css
-├── script.js
-├── assets/
-│   └── (images, sounds, etc.)
-└── README.md
-🚧 Future Improvements
-Add levels or stages
-
-More car designs and themes
-
-Leaderboard and scoring system
-
-Mobile touch controls
-
-📜 License
-This project is licensed under the MIT License.
-
-🤝 Contributing
-Feel free to fork the repository and submit pull requests. Contributions are welcome!
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md)
+file for details.

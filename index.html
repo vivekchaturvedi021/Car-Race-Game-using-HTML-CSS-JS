@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Car Racing Game</title>
+	<link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet">
+</head>
+<!-- Please Share as you can -->
+<body>
+	<div class="CarGame">
+		<div class="Score"></div>
+			<div class="StartScreen">
+				<p>Press Here To Start <br>
+				Arrow Keys To Move <br>
+			  If You Hit Another Car You Will Lose!</p>
+			</div>
+		
+		<div class="GameArea ">MyGameArea
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		const score =document.querySelector('.Score');
+		const startscreen =document.querySelector('.StartScreen');
+	    const gamearea =document.querySelector('.GameArea');
+        //console.log(score); //Testing 
+
+        //jab user start screen div pe click krega toh game start hogi aur start name ka function invoked(call) hoga
+        startscreen.addEventListener('click',start);
+        let player ={ speed:5, score:0 }; //for the player
+        let keys={ ArrowUp:false, ArrowDown:false, ArrowLeft:false, ArrowRight:false};
+
+        document.addEventListener('keydown',KeyDownfunc);  //when any keypress these callback function will be call
+        document.addEventListener('keyup',KeyUpfunc);  //when key release
+
+        function KeyDownfunc(e){
+        	e.preventDefault();
+            keys[e.key]=true;      //set keyname value to true to keys object 
+        	//console.log(e.key);  //get key name
+        	//console.log(keys); 
+        }
+
+         function KeyUpfunc (e){
+         	e.preventDefault();
+         	keys[e.key]=false;
+        	//console.log(e.key);
+        } 
+        //when maincar touch enemycar then it will return collision
+        function iscollide(a,b){  //maincar,enemycars
+        	aRect=a.getBoundingClientRect();
+        	bRect=b.getBoundingClientRect();
+        	//hamari actual car ki position enemy car ki position se jyda honi chiye
+        	//en charo me se koi ek bhi false ho gya wo !not operator ko return ho jayega jo ki true bna kr result bhejega
+        	return !((aRect.bottom < bRect.top || aRect.top > bRect.bottom || aRect.right < bRect.left || aRect.left > bRect.right ))
+        }
+        function Movelines(){
+        	let lines =document.querySelectorAll('.lines');
+        	lines.forEach(function(item){
+        		if(item.y>=700){
+        			item.y-=665;
+        		}
+        		item.y+=player.speed;
+        		item.style.top=item.y +"px";
+        	})
+        	
+        }
+
+        function Endgame(){
+        	player.start=false;
+        	startscreen.classList.remove('hide'); 
+            startscreen.innerHTML="Game Over <br> Your Final Score is :"+(player.score+1)+"<br>Press Here To Restart The Game";
+        }
+         function Moveenemycars(car){ //closure consept child function access parent function parameter
+        	let enemy =document.querySelectorAll('.enemycar');
+        	enemy.forEach(function(item){
+        		if (iscollide(car,item)) { //Collision
+        			//console.log("Boomhit");
+        			Endgame();
+        		}
+        		if(item.y>=780){
+        			item.y=-300;
+        	      item.style.left=Math.floor(Math.random()*350)+"px";
+        		}
+        		item.y+=player.speed;
+        		item.style.top=item.y +"px";
+        	})
+        	
+        }
+
+        function GamePlay(){
+            //road and gamearea variables are same
+        	//console.log("hey i m clicked"); //testing
+            let car =document.querySelector('.car'); //select car 
+            let road = gamearea.getBoundingClientRect(); //get all postions x,y all :)
+            //console.log(road);
+        	if(player.start){ //check true or false
+                //2 conditions ek toh ye ki true honi chiye aur second ye ki player kha par hai aur road se bahr nhi jana chiye
+                
+                Movelines();
+                Moveenemycars(car);
+                if(keys.ArrowUp && player.y>road.top+110){ player.y-=player.speed}
+                if(keys.ArrowDown && player.y<road.bottom-70){ player.y+=player.speed}
+                if(keys.ArrowLeft && player.x > 0){ player.x-=player.speed}
+                if(keys.ArrowRight && player.x<(road.width-50)){ player.x+=player.speed}
+                   
+                   car.style.top=player.y+"px";
+                   car.style.left=player.x+"px";
+
+        		window.requestAnimationFrame(GamePlay); //works like recursion
+        			//console.log(player.score++);
+        			player.score++;
+        			score.innerText="Score:"+player.score
+        	}
+        }
+
+        function start(){
+        	//gamearea.classList.remove('hide');  //phle toh game area ki hide class remove hogi wo show ho jayega
+        	startscreen.classList.add('hide');  
+        	gamearea.innerHTML="";
+        	player.start = true; 
+        	player.score=0;
+        	//ye function animation k liye hai jo khud ko call krta jayega
+        	window.requestAnimationFrame(GamePlay);
+
+
+            for (var i = 0; i < 6; i++) {
+                let roadline = document.createElement('div');  
+                roadline.setAttribute('class','lines');
+                roadline.y=(i*110);
+                roadline.style.top=roadline.y +"px"; //set position
+                gamearea.appendChild(roadline);
+            }
+
+        	let car = document.createElement('div');  //ek dynamic element create hoga
+        	car.setAttribute('class','car');         //class add ho jayegi
+        	//car.innerText ="hey i m a car";       //testing
+        	gamearea.appendChild(car);
+            
+            player.x=car.offsetLeft; 
+            player.y=car.offsetTop;
+
+            //console.log("Car Top Posistion"+car.offsetTop); //get car position
+            //console.log("Car left Posistion"+car.offsetLeft); 
+
+             //Generate enemy cars
+              for (var x = 0; x < 3; x++) {
+                let enemycar = document.createElement('div');  
+                enemycar.setAttribute('class','enemycar');
+                enemycar.y=((x+1) * 350) * -1;
+                //enemycar.y=(x*110);
+                enemycar.style.top=enemycar.y +"px"; //set position
+               
+                enemycar.style.left=Math.floor(Math.random()*350)+"px";
+                gamearea.appendChild(enemycar);
+            }
+        }
+
+
+	</script>
+</body>
+</html>
